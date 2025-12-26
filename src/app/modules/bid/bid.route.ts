@@ -1,40 +1,45 @@
-import express from 'express';
-import validateRequest from '../../middlewares/validateRequest';
-import { BidController } from './bid.controller';
+import express from "express";
+import validateRequest from "../../middlewares/validateRequest";
+import { BidController } from "./bid.controller";
 import {
   createBidValidationSchema,
   updateBidValidationSchema,
-} from './bid.validation';
-import auth from '../../middlewares/auth';
-import { USER_ROLE } from '../../utils/userUtils';
+} from "./bid.validation";
+import auth from "../../middlewares/auth";
+import { USER_ROLE } from "../../utils/userUtils";
 
 const router = express.Router();
 
 router.post(
-  '/',
+  "/",
   auth(USER_ROLE.driver),
   validateRequest(createBidValidationSchema),
-  BidController.createBid,
+  BidController.createBid
 );
 
 router.patch(
-  '/:id',
+  "/:id",
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.driver),
   validateRequest(updateBidValidationSchema),
-  BidController.updateBidById,
+  BidController.updateBidById
 );
 
 router.delete(
-  '/:id',
+  "/:id",
   auth(USER_ROLE.admin, USER_ROLE.driver),
-  BidController.deleteBidById,
+  BidController.deleteBidById
 );
 
 router.get(
-  '/:id',
+  "/",
   auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.driver),
-  BidController.findBidById,
+  BidController.getAllBids
 );
 
+router.get(
+  "/:id",
+  auth(USER_ROLE.admin, USER_ROLE.user, USER_ROLE.driver),
+  BidController.findBidById
+);
 
 export const BidRoutes = router;

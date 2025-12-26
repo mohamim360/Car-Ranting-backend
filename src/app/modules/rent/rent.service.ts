@@ -28,9 +28,14 @@ const findRentById = async (rentId: string) => {
   return await Rent.findById(rentId);
 };
 
+const getAllRents = async () => {
+  return await Rent.find().populate("user").populate("car");
+};
+
 export const RentService = {
   createRent,
   updateRentById,
   deleteRentById,
   findRentById,
+  getAllRents,
 };

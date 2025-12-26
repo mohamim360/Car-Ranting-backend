@@ -1,7 +1,6 @@
-
-import { Rent } from '../rent/rent.model';
-import { IBid } from './bid.interface';
-import { Bid } from './bid.model';
+import { Rent } from "../rent/rent.model";
+import { IBid } from "./bid.interface";
+import { Bid } from "./bid.model";
 
 const createBid = async (bid: IBid) => {
   return await Bid.create(bid);
@@ -16,18 +15,18 @@ const updateBidById = async (bidId: string, payload: Partial<IBid>) => {
     new: true,
     runValidators: true,
   });
-  if (result?.bidStatus === 'accepted') {
+  if (result?.bidStatus === "accepted") {
     const newResult = await Rent.findByIdAndUpdate(
       { _id: result.rentId },
-      { rentStatus: 'ongoing' },
+      { rentStatus: "ongoing" },
       {
         new: true,
         runValidators: true,
-      },
+      }
     );
-    return newResult
+    return newResult;
   }
-  return result
+  return result;
 };
 
 const deleteBidById = async (bidId: string) => {
@@ -35,9 +34,14 @@ const deleteBidById = async (bidId: string) => {
   return result;
 };
 
+const getAllBids = async () => {
+  return await Bid.find().populate("rentId").populate("driverId");
+};
+
 export const BidService = {
   createBid,
   findBidById,
   updateBidById,
   deleteBidById,
+  getAllBids,
 };

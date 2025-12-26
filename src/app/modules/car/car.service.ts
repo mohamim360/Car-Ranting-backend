@@ -1,5 +1,5 @@
-import { ICar } from './car.interface';
-import { Car } from './car.model';
+import { ICar } from "./car.interface";
+import { Car } from "./car.model";
 
 const createCar = async (car: ICar) => {
   return await Car.create(car);
@@ -22,9 +22,14 @@ const findCarById = async (carId: string) => {
   return await Car.findById(carId);
 };
 
+const getAllCars = async () => {
+  return await Car.find();
+};
+
 export const CarService = {
   createCar,
   findCarById,
   updateCarById,
   deleteCarById,
+  getAllCars,
 };

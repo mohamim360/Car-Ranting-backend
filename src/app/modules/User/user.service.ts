@@ -1,15 +1,15 @@
-import bcryptJs  from 'bcryptjs';
-import { IUser } from "./user.interface"
-import config from '../../config';
-import { User } from './user.model';
+import bcryptJs from "bcryptjs";
+import { IUser } from "./user.interface";
+import config from "../../config";
+import { User } from "./user.model";
 
 const createUser = async (user: IUser) => {
-	user.password = await bcryptJs.hash(
-		user.password,
-		Number(config.bcrypt_salt_rounds)
-	)
-	return await User.create(user);
-}
+  user.password = await bcryptJs.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds)
+  );
+  return await User.create(user);
+};
 
 const updateUserById = async (userId: string, payload: Partial<IUser>) => {
   const result = await User.findByIdAndUpdate({ _id: userId }, payload, {
@@ -28,10 +28,14 @@ const findUserById = async (userId: string) => {
   return await User.findById(userId);
 };
 
+const getAllUsers = async () => {
+  return await User.find();
+};
+
 export const UserService = {
-	createUser,
+  createUser,
   updateUserById,
   deleteUserById,
-	findUserById,
-
-}
+  findUserById,
+  getAllUsers,
+};

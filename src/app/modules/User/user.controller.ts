@@ -1,18 +1,18 @@
-import  httpStatus  from 'http-status';
+import httpStatus from "http-status";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
 import { UserService } from "./user.service";
 
-const createUser = catchAsync(async (req,res) => {
-	const result = await UserService.createUser(req.body);
-	
-	sendResponse(res, {
-		statusCode: httpStatus.CREATED,
-		success: true,
-		message: "User is created successfully",
-		data: result
-	})
-})
+const createUser = catchAsync(async (req, res) => {
+  const result = await UserService.createUser(req.body);
+
+  sendResponse(res, {
+    statusCode: httpStatus.CREATED,
+    success: true,
+    message: "User is created successfully",
+    data: result,
+  });
+});
 
 const updateUserById = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -21,7 +21,7 @@ const updateUserById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is updated successfully',
+    message: "User is updated successfully",
     data: result,
   });
 });
@@ -33,7 +33,7 @@ const deleteUserById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is deleted successfully',
+    message: "User is deleted successfully",
     data: result && null,
   });
 });
@@ -45,16 +45,26 @@ const findUserById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User is retrieved succesfully',
+    message: "User is retrieved succesfully",
     data: result,
   });
 });
 
+const getAllUsers = catchAsync(async (req, res) => {
+  const result = await UserService.getAllUsers();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Users are retrieved successfully",
+    data: result,
+  });
+});
 
 export const UserController = {
-	createUser,
-	updateUserById,
+  createUser,
+  updateUserById,
   deleteUserById,
-	findUserById,
-
-}
+  findUserById,
+  getAllUsers,
+};

@@ -23,6 +23,8 @@ router.patch(
 
 router.delete("/:id", auth(USER_ROLE.admin), UserController.deleteUserById);
 
+router.get("/", auth(USER_ROLE.admin), UserController.getAllUsers);
+
 router.get(
   "/:id",
   auth(USER_ROLE.admin, USER_ROLE.driver, USER_ROLE.user),

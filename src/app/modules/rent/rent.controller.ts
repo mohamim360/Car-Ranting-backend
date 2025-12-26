@@ -1,7 +1,7 @@
-import httpStatus from 'http-status';
-import catchAsync from '../../utils/catchAsync';
-import sendResponse from '../../utils/sendResponse';
-import { RentService } from './rent.service';
+import httpStatus from "http-status";
+import catchAsync from "../../utils/catchAsync";
+import sendResponse from "../../utils/sendResponse";
+import { RentService } from "./rent.service";
 
 const createRent = catchAsync(async (req, res) => {
   const result = await RentService.createRent(req.body);
@@ -9,7 +9,7 @@ const createRent = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
-    message: 'Rent is created successfully',
+    message: "Rent is created successfully",
     data: result,
   });
 });
@@ -21,7 +21,7 @@ const updateRentById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Rent is updated successfully',
+    message: "Rent is updated successfully",
     data: result,
   });
 });
@@ -33,7 +33,7 @@ const deleteRentById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Rent is deleted successfully',
+    message: "Rent is deleted successfully",
     data: result && null,
   });
 });
@@ -45,7 +45,18 @@ const findRentById = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Rent is retrieved successfully',
+    message: "Rent is retrieved successfully",
+    data: result,
+  });
+});
+
+const getAllRents = catchAsync(async (req, res) => {
+  const result = await RentService.getAllRents();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Rents are retrieved successfully",
     data: result,
   });
 });
@@ -55,4 +66,5 @@ export const RentController = {
   findRentById,
   updateRentById,
   deleteRentById,
+  getAllRents,
 };
