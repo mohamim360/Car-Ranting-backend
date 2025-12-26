@@ -1,10 +1,10 @@
-import config from '../../config';
-import bcryptJs from 'bcryptjs';
-import { User } from '../User/user.model';
-import { TLoginUser } from './auth.interface';
-import { createToken } from '../../utils/authUtils';
-import { USER_ROLE } from '../../utils/userUtils';
-import { SignOptions } from 'jsonwebtoken';
+import config from "../../config";
+import bcryptJs from "bcryptjs";
+import { User } from "../user/user.model";
+import { TLoginUser } from "./auth.interface";
+import { createToken } from "../../utils/authUtils";
+import { USER_ROLE } from "../../utils/userUtils";
+import { SignOptions } from "jsonwebtoken";
 
 const loginUser = async (payload: TLoginUser) => {
   // check if user exists
@@ -18,11 +18,11 @@ const loginUser = async (payload: TLoginUser) => {
     if (payload.password) {
       const isPasswordMatched = await bcryptJs.compare(
         payload.password,
-        user.password,
+        user.password
       );
 
       if (!isPasswordMatched) {
-        throw new Error('Password Incorrect!');
+        throw new Error("Password Incorrect!");
       }
     }
   }
@@ -36,7 +36,7 @@ const loginUser = async (payload: TLoginUser) => {
   const accessToken = createToken(
     jwtPayload,
     config.jwt_access_secret as string,
-    config.jwt_access_expires_in as SignOptions["expiresIn"],
+    config.jwt_access_expires_in as SignOptions["expiresIn"]
   );
 
   return {
@@ -48,7 +48,7 @@ const registerUser = async (userData: TLoginUser) => {
   if (userData.password) {
     userData.password = await bcryptJs.hash(
       userData.password,
-      Number(config.bcrypt_salt_rounds),
+      Number(config.bcrypt_salt_rounds)
     );
   }
 

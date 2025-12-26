@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { UserRoutes } from "../modules/User/user.route";
+import { UserRoutes } from "../modules/user/user.route";
 import { AuthRoutes } from "../modules/Auth/auth.route";
 import { CarRoutes } from "../modules/car/car.route";
 import { RentRoutes } from "../modules/rent/rent.route";
+import { BidRoutes } from "../modules/bid/bid.route";
 
 type TModuleRoutes = {
   path: string;
@@ -17,16 +18,20 @@ const moduleRoutes: TModuleRoutes[] = [
     route: UserRoutes,
   },
   {
-    path: '/auth',
+    path: "/auth",
     route: AuthRoutes,
   },
   {
-    path: '/cars',
+    path: "/cars",
     route: CarRoutes,
   },
   {
-    path: '/rents',
+    path: "/rents",
     route: RentRoutes,
+  },
+  {
+    path: "/bids",
+    route: BidRoutes,
   },
 ];
 
